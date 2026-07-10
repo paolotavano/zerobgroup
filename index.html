@@ -486,17 +486,34 @@
         font-size: 1rem;
       }
       .language-field { grid-area: lang; }
-      .tabs-shell { padding-bottom: 6px; }
+      .tabs-shell {
+        padding-inline: 8px;
+        padding-bottom: 5px;
+      }
       .tab-strip {
-        grid-auto-columns: minmax(132px, 76vw);
-        gap: 5px;
+        grid-auto-columns: minmax(0, 1fr);
+        gap: 4px;
+        padding: 2px 0;
       }
       .tab {
-        min-height: 38px;
-        padding: 6px 8px;
+        min-height: 26px;
+        gap: 5px;
+        padding: 2px 5px;
       }
-      .tab-icon { font-size: 1.05rem; }
-      .tab-label { font-size: .9rem; }
+      .tab-icon {
+        width: 1.18em;
+        font-size: .84rem;
+      }
+      .tab-label { font-size: .74rem; }
+      .level-2 .tab,
+      .level-3 .tab {
+        min-height: 26px;
+        padding-block: 2px;
+      }
+      .level-2 .tab-icon,
+      .level-3 .tab-icon {
+        font-size: .84rem;
+      }
       main { padding-bottom: 18px; }
       .content-panel { padding: 16px; }
       .child-choice-list {
