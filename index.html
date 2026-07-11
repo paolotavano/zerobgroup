@@ -15,6 +15,27 @@
       --blue-1: #1C4878;
       --blue-2: #467DAA;
       --blue-3: #9BCDE6;
+      --level-1-bg: #F5F7FA;
+      --level-1-text: #34383D;
+      --level-2-bg: #E9EBEE;
+      --level-2-text: #34383D;
+      --level-3-bg: #DADDE1;
+      --level-3-text: #2D3136;
+      --level-4-bg: #C9CCD1;
+      --level-4-text: #252A30;
+      --level-5-bg: #B8BBC0;
+      --level-5-text: #121214;
+      --level-6-bg: #9A9DA3;
+      --level-6-text: #121214;
+      --level-7-bg: #74787E;
+      --level-7-text: #F5F7FA;
+      --level-8-bg: #5F6267;
+      --level-8-text: #F5F7FA;
+      --level-9-bg: #3A3D42;
+      --level-9-text: #FFFFFF;
+      --level-10-bg: #121214;
+      --level-10-text: #FFFFFF;
+      --level-6-text: #FFFFFF;
       --bg: var(--gray-1);
       --surface: var(--paper);
       --text: var(--ink);
@@ -82,7 +103,7 @@
       letter-spacing: 0;
       white-space: nowrap;
     }
-    .logo .b { color: var(--primary); }
+    .logo .b { color: inherit; }
     .claim {
       grid-area: claim;
       color: var(--primary);
@@ -169,15 +190,28 @@
       padding: 0 clamp(14px, 3vw, 34px) 8px;
     }
     .tab-strip {
+      --tab-bg: var(--level-1-bg);
+      --tab-color: var(--level-1-text);
       display: grid;
       grid-auto-flow: column;
       grid-auto-columns: minmax(145px, 1fr);
       gap: 6px;
+      position: relative;
       min-width: 0;
       overflow-x: auto;
       padding: 3px 0;
       scrollbar-width: thin;
     }
+    .level-1 { --tab-bg: var(--level-1-bg); --tab-color: var(--level-1-text); }
+    .level-2 { --tab-bg: var(--level-2-bg); --tab-color: var(--level-2-text); }
+    .level-3 { --tab-bg: var(--level-3-bg); --tab-color: var(--level-3-text); }
+    .level-4 { --tab-bg: var(--level-4-bg); --tab-color: var(--level-4-text); }
+    .level-5 { --tab-bg: var(--level-5-bg); --tab-color: var(--level-5-text); }
+    .level-6 { --tab-bg: var(--level-6-bg); --tab-color: var(--level-6-text); }
+    .level-7 { --tab-bg: var(--level-7-bg); --tab-color: var(--level-7-text); }
+    .level-8 { --tab-bg: var(--level-8-bg); --tab-color: var(--level-8-text); }
+    .level-9 { --tab-bg: var(--level-9-bg); --tab-color: var(--level-9-text); }
+    .level-10 { --tab-bg: var(--level-10-bg); --tab-color: var(--level-10-text); }
     .tab {
       display: grid;
       grid-template-columns: auto minmax(0, 1fr);
@@ -185,25 +219,29 @@
       gap: 8px;
       min-height: 42px;
       padding: 7px 9px;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(18, 18, 20, .18);
       border-radius: var(--radius);
-      background: var(--surface);
-      color: var(--text);
+      background: var(--tab-bg);
+      color: var(--tab-color);
       text-align: left;
       cursor: pointer;
-      box-shadow: none;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .42);
     }
     .tab:hover,
     .tab:focus-visible {
-      border-color: var(--primary);
+      border-color: var(--ink);
       outline: 0;
-      box-shadow: inset 0 0 0 1px var(--ring);
+      box-shadow: inset 0 0 0 1px rgba(18, 18, 20, .3), inset 0 1px 0 rgba(255, 255, 255, .42);
     }
-    .tab.active {
-      border-color: var(--primary);
-      background: var(--primary);
-      color: #fff;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.16);
+    .tab.ancestor {
+      border-color: var(--ink);
+      box-shadow: inset 0 0 0 1px rgba(18, 18, 20, .88), inset 0 1px 0 rgba(255, 255, 255, .38);
+    }
+    .tab.current {
+      border-color: var(--ink);
+      background: var(--tab-bg);
+      color: var(--tab-color);
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .82), 0 0 0 1px var(--ink);
     }
     .tab-icon {
       width: 1.5em;
@@ -220,9 +258,10 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      font-weight: 760;
+      font-weight: 560;
       letter-spacing: 0;
     }
+    .tab.current .tab-label { font-weight: 820; }
     .level-2 .tab {
       min-height: 38px;
       padding-block: 6px;
@@ -231,10 +270,22 @@
     .level-3 .tab {
       min-height: 34px;
       padding-block: 5px;
-      background: rgba(245, 247, 250, .72);
     }
-    .level-3 .tab.active { background: var(--primary); }
     .level-3 .tab-icon { font-size: 1rem; }
+    .tab.current,
+    .level-2 .tab.current,
+    .level-3 .tab.current,
+    .level-4 .tab.current,
+    .level-5 .tab.current,
+    .level-6 .tab.current,
+    .level-7 .tab.current,
+    .level-8 .tab.current,
+    .level-9 .tab.current,
+    .level-10 .tab.current {
+      border-color: var(--ink);
+      background: var(--tab-bg);
+      color: var(--tab-color);
+    }
     main {
       width: min(1180px, 100%);
       margin: 0 auto;
@@ -567,7 +618,7 @@
       </label>
     </div>
     <nav id="tab-area" class="tabs-shell" aria-label="Navigazione principale">
-      <div class="tab-strip level-1" role="tablist"><button class="tab active" type="button" data-level="0" data-node-id="zerob-group"><span class="tab-icon">▣</span><span class="tab-label">ZeroB Group</span></button><button class="tab" type="button" data-level="0" data-node-id="proposals-portfolio-careers"><span class="tab-icon">+</span><span class="tab-label">Proposte, Portfolio, Carriere</span></button><button class="tab" type="button" data-level="0" data-node-id="contact-location-privacy"><span class="tab-icon">⚑</span><span class="tab-label">Contatti, Sedi, Privacy</span></button></div><div class="tab-strip level-2" role="tablist"><button class="tab active" type="button" data-level="1" data-node-id="about"><span class="tab-icon">ⓘ</span><span class="tab-label">About</span></button><button class="tab" type="button" data-level="1" data-node-id="the-group"><span class="tab-icon">⩉</span><span class="tab-label">Il Gruppo</span></button><button class="tab" type="button" data-level="1" data-node-id="vision-mission-values"><span class="tab-icon">◎</span><span class="tab-label">Visione, Missione, Valori fondamentali</span></button></div>
+      <div class="tab-strip level-1" role="tablist"><button class="tab active ancestor" type="button" data-level="0" data-node-id="zerob-group"><span class="tab-icon">▣</span><span class="tab-label">ZeroB Group</span></button><button class="tab" type="button" data-level="0" data-node-id="proposals-portfolio-careers"><span class="tab-icon">+</span><span class="tab-label">Proposte, Portfolio, Carriere</span></button><button class="tab" type="button" data-level="0" data-node-id="contact-location-privacy"><span class="tab-icon">⚑</span><span class="tab-label">Contatti, Sedi, Privacy</span></button></div><div class="tab-strip level-2" role="tablist"><button class="tab active current" type="button" data-level="1" data-node-id="about"><span class="tab-icon">ⓘ</span><span class="tab-label">About</span></button><button class="tab" type="button" data-level="1" data-node-id="the-group"><span class="tab-icon">⩉</span><span class="tab-label">Il Gruppo</span></button><button class="tab" type="button" data-level="1" data-node-id="vision-mission-values"><span class="tab-icon">◎</span><span class="tab-label">Visione, Missione, Valori fondamentali</span></button></div>
     </nav>
   </header>
   <main id="content" tabindex="-1">
@@ -629,7 +680,9 @@
       strip.setAttribute("role", "tablist");
       const activeId = activePath[level] || "";
       for (const node of nodes) {
-        const button = createEl("button", `tab${node.id === activeId ? " active" : ""}`);
+        const isActive = node.id === activeId;
+        const stateClass = isActive ? ` active ${level === activePath.length - 1 ? "current" : "ancestor"}` : "";
+        const button = createEl("button", `tab${stateClass}`);
         button.type = "button";
         button.dataset.level = String(level);
         button.dataset.nodeId = node.id;
